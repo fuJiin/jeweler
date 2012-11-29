@@ -215,10 +215,10 @@ class Jeweler
         # clear ARGV so IRB is not confused
         ARGV.clear
 
-        require 'irb'
+        require 'irb' unless defined?(IRB)
 
-        # set the optional script to run
-        IRB.conf[:SCRIPT] = args.script
+        # set the optional script to run, if irb supports it
+        IRB.conf[:SCRIPT] = args.script if IRB.respond_to?(:conf)
         IRB.start
 
         # return the $LOAD_PATH to it's original state
